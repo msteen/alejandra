@@ -19,7 +19,7 @@ in {
 
   options = {
     boot.kernel.features = mkOption {
-      default = {};
+      default = { };
       example = literalExpression "{ debug = true; }";
       internal = true;
       description = ''
@@ -33,12 +33,12 @@ in {
 
     boot.kernelPackages = mkOption {
       default = pkgs.linuxPackages;
-      type = types.unspecified // {merge = mergeEqualOption;};
+      type = types.unspecified // { merge = mergeEqualOption; };
       apply = kernelPackages:
         kernelPackages.extend (self: super: {
           kernel = super.kernel.override (originalArgs: {
             inherit randstructSeed;
-            kernelPatches = (originalArgs.kernelPatches or []) ++ kernelPatches;
+            kernelPatches = (originalArgs.kernelPatches or [ ]) ++ kernelPatches;
             features = lib.recursiveUpdate super.kernel.features features;
           });
         });
@@ -62,7 +62,7 @@ in {
 
     boot.kernelPatches = mkOption {
       type = types.listOf types.attrs;
-      default = [];
+      default = [ ];
       example = literalExpression "[ pkgs.kernelPatches.ubuntu_fan_4_4 ]";
       description = "A list of additional patches to apply to the kernel.";
     };
@@ -86,7 +86,7 @@ in {
           name = "kernelParam";
           description = "string, with spaces inside double quotes";
         });
-      default = [];
+      default = [ ];
       description = "Parameters added to the kernel command line.";
     };
 
@@ -114,14 +114,14 @@ in {
 
     boot.extraModulePackages = mkOption {
       type = types.listOf types.package;
-      default = [];
+      default = [ ];
       example = literalExpression "[ config.boot.kernelPackages.nvidia_x11 ]";
       description = "A list of additional packages supplying kernel modules.";
     };
 
     boot.kernelModules = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = ''
         The set of kernel modules to be loaded in the second stage of
         the boot process.  Note that modules that are needed to
@@ -133,8 +133,8 @@ in {
 
     boot.initrd.availableKernelModules = mkOption {
       type = types.listOf types.str;
-      default = [];
-      example = ["sata_nv" "ext3"];
+      default = [ ];
+      example = [ "sata_nv" "ext3" ];
       description = ''
         The set of kernel modules in the initial ramdisk used during the
         boot process.  This set must include all modules necessary for
@@ -154,7 +154,7 @@ in {
 
     boot.initrd.kernelModules = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
       description = "List of modules that are always loaded by the initrd.";
     };
 
@@ -171,7 +171,7 @@ in {
     system.modulesTree = mkOption {
       type = types.listOf types.path;
       internal = true;
-      default = [];
+      default = [ ];
       description = ''
         Tree of kernel modules.  This includes the kernel, plus modules
         built outside of the kernel.  Combine these into a single tree of
@@ -182,7 +182,7 @@ in {
     };
 
     system.requiredKernelConfig = mkOption {
-      default = [];
+      default = [ ];
       example = literalExpression ''
         with config.lib.kernelConfig; [
           (isYes "MODULES")
@@ -263,22 +263,22 @@ in {
       })
 
       (mkIf (!config.boot.isContainer) {
-        system.build = {inherit kernel;};
+        system.build = { inherit kernel; };
 
-        system.modulesTree = [kernel] ++ config.boot.extraModulePackages;
+        system.modulesTree = [ kernel ] ++ config.boot.extraModulePackages;
 
         # Implement consoleLogLevel both in early boot and using sysctl
         # (so you don't need to reboot to have changes take effect).
         boot.kernelParams =
-          ["loglevel=${toString config.boot.consoleLogLevel}"]
-          ++ optionals config.boot.vesa ["vga=0x317" "nomodeset"];
+          [ "loglevel=${toString config.boot.consoleLogLevel}" ]
+          ++ optionals config.boot.vesa [ "vga=0x317" "nomodeset" ];
 
         boot.kernel.sysctl."kernel.printk" = mkDefault config.boot.consoleLogLevel;
 
-        boot.kernelModules = ["loop" "atkbd"];
+        boot.kernelModules = [ "loop" "atkbd" ];
 
         # The Linux kernel >= 2.6.27 provides firmware.
-        hardware.firmware = [kernel];
+        hardware.firmware = [ kernel ];
 
         # Create /etc/modules-load.d/nixos.conf, which is read by
         # systemd-modules-load.service to load required kernel modules.
@@ -287,8 +287,8 @@ in {
         };
 
         systemd.services.systemd-modules-load = {
-          wantedBy = ["multi-user.target"];
-          restartTriggers = [kernelModulesConf];
+          wantedBy = [ "multi-user.target" ];
+          restartTriggers = [ kernelModulesConf ];
           serviceConfig = {
             # Ignore failed module loads.  Typically some of the
             # modules in ‘boot.kernelModules’ are "nice to have but
@@ -345,7 +345,7 @@ in {
         # nixpkgs kernels are assumed to have all required features
         assertions =
           if config.boot.kernelPackages.kernel ? features
-          then []
+          then [ ]
           else let
             cfg = config.boot.kernelPackages.kernel.config;
           in

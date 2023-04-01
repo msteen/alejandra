@@ -4,12 +4,12 @@
     c
     */
       d)
-  ({}: b:
+  ({ }: b:
     /*
     c
     */
       d)
-  (a: {}:
+  (a: { }:
     /*
     c
     */
@@ -42,22 +42,22 @@
     aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   )
   ({
-    pkgs ? import ./.. {},
+    pkgs ? import ./.. { },
     locationsXml,
   }:
     null)
-  (a: b: c: {}: a: b: c:
+  (a: b: c: { }: a: b: c:
     a)
 
-  ({pkgs, ...}: {
+  ({ pkgs, ... }: {
     # Stuff
   })
 
-  ({pkgs, ...}: let
+  ({ pkgs, ... }: let
   in
     pkgs)
 
-  (a: {b, ...}: c: {
+  (a: { b, ... }: c: {
     # Stuff
   })
 

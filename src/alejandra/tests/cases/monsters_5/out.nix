@@ -34,7 +34,7 @@ in {
     boot.kernel.features =
       mkOption
       {
-        default = {};
+        default = { };
 
         example =
           literalExpression
@@ -77,7 +77,7 @@ in {
 
                 kernelPatches =
                   (originalArgs.kernelPatches
-                    or [])
+                    or [ ])
                   ++ kernelPatches;
 
                 features =
@@ -119,7 +119,7 @@ in {
           types.listOf
           types.attrs;
 
-        default = [];
+        default = [ ];
 
         example =
           literalExpression

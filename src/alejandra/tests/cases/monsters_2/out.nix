@@ -14,7 +14,7 @@
 
   options = {
     boot.kernel.features = mkOption {
-      default = {};
+      default = { };
       example = literalExpression "{ debug = true; }";
       internal = true;
       description = ''

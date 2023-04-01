@@ -4,7 +4,7 @@ rec
   a = 4;
   a = a: b;
 
-  a = {a = 1;};
+  a = { a = 1; };
 
   b = {
     a =
@@ -79,7 +79,7 @@ rec
       */
       ;
   };
-  j = a: {b = 1;};
+  j = a: { b = 1; };
   k = a: {
     b = 1;
     c = 2;
@@ -88,7 +88,7 @@ rec
   /*
   b
   */
-  {b = 1;};
+  { b = 1; };
   m = a:
   /*
   b
@@ -97,8 +97,8 @@ rec
     b = 1;
     c = 2;
   };
-  n = pkgs: {};
-  o = {pkgs, ...}: {};
+  n = pkgs: { };
+  o = { pkgs, ... }: { };
 
   a
   /*
@@ -115,6 +115,6 @@ rec
     ;
 
   p =
-    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa {}
+    aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa { }
     a;
 }

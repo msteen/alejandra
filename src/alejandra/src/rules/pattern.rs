@@ -71,7 +71,7 @@ pub(crate) fn rule(
         if vertical {
             steps.push_back(crate::builder::Step::NewLine);
             steps.push_back(crate::builder::Step::Pad);
-        } else if index > 0 {
+        } else {
             steps.push_back(crate::builder::Step::Whitespace);
         }
 
@@ -136,6 +136,8 @@ pub(crate) fn rule(
             steps.push_back(crate::builder::Step::NewLine);
             steps.push_back(crate::builder::Step::Pad);
         }
+    } else {
+        steps.push_back(crate::builder::Step::Whitespace);
     }
     steps.push_back(crate::builder::Step::Token(
         rnix::SyntaxKind::TOKEN_CURLY_B_OPEN,
