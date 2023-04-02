@@ -1,6 +1,7 @@
 [dependencies]
 rnix = "0.10.2"
 rowan = "0.12.6" # follows rnix
+human-sort = "0.2.2"
 
 [target.aarch64-unknown-linux-musl.dependencies.mimalloc]
 default-features = false

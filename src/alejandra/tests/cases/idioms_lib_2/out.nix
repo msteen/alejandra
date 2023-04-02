@@ -190,17 +190,17 @@
   # Pull in some builtins not included elsewhere.
   inherit
     (builtins)
-    pathExists
-    readFile
-    isBool
-    isInt
-    isFloat
     add
-    sub
-    lessThan
-    seq
     deepSeq
     genericClosure
+    isBool
+    isFloat
+    isInt
+    lessThan
+    pathExists
+    readFile
+    seq
+    sub
     ;
 
   ## nixpkgs version strings
