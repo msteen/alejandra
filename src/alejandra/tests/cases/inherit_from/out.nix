@@ -1,8 +1,7 @@
 [
   { inherit (c) f h; }
   {
-    inherit
-      (c)
+    inherit (c)
       f
       h
       /*
@@ -11,8 +10,7 @@
       ;
   }
   {
-    inherit
-      (c)
+    inherit (c)
       f
       /*
       g
@@ -21,60 +19,7 @@
       ;
   }
   {
-    inherit
-      (c)
-      f
-      /*
-      g
-      */
-      h
-      /*
-      i
-      */
-      ;
-  }
-  {
-    inherit
-      (c)
-      /*
-      e
-      */
-      f
-      h
-      ;
-  }
-  {
-    inherit
-      (c)
-      /*
-      e
-      */
-      f
-      h
-      /*
-      i
-      */
-      ;
-  }
-  {
-    inherit
-      (c)
-      /*
-      e
-      */
-      f
-      /*
-      g
-      */
-      h
-      ;
-  }
-  {
-    inherit
-      (c)
-      /*
-      e
-      */
+    inherit (c)
       f
       /*
       g
@@ -86,25 +31,13 @@
       ;
   }
   {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
+    inherit (c)
       f
       h
       ;
   }
   {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
+    inherit (c)
       f
       h
       /*
@@ -113,13 +46,7 @@
       ;
   }
   {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
+    inherit (c)
       f
       /*
       g
@@ -128,13 +55,7 @@
       ;
   }
   {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
+    inherit (c)
       f
       /*
       g
@@ -145,32 +66,19 @@
       */
       ;
   }
+  { inherit (
+    c
+    /*
+    d
+    */
+  ) f h; }
   {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
+    inherit (
+      c
       /*
-      e
+      d
       */
-      f
-      h
-      ;
-  }
-  {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
-      /*
-      e
-      */
+    )
       f
       h
       /*
@@ -179,16 +87,12 @@
       ;
   }
   {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
+    inherit (
+      c
       /*
-      e
+      d
       */
+    )
       f
       /*
       g
@@ -197,16 +101,12 @@
       ;
   }
   {
-    inherit
-      (
-        c
-        /*
-        d
-        */
-      )
+    inherit (
+      c
       /*
-      e
+      d
       */
+    )
       f
       /*
       g
@@ -218,25 +118,23 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
+    inherit (
+      c
+      /*
+      d
+      */
+    )
       f
       h
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
+    inherit (
+      c
+      /*
+      d
+      */
+    )
       f
       h
       /*
@@ -245,13 +143,12 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
+    inherit (
+      c
+      /*
+      d
+      */
+    )
       f
       /*
       g
@@ -260,13 +157,12 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
+    inherit (
+      c
+      /*
+      d
+      */
+    )
       f
       /*
       g
@@ -277,32 +173,19 @@
       */
       ;
   }
+  { inherit (
+    /*
+    b
+    */
+    c
+  ) f h; }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
+    inherit (
       /*
-      e
+      b
       */
-      f
-      h
-      ;
-  }
-  {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
-      /*
-      e
-      */
+      c
+    )
       f
       h
       /*
@@ -311,16 +194,12 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
+    inherit (
       /*
-      e
+      b
       */
+      c
+    )
       f
       /*
       g
@@ -329,16 +208,12 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-      )
+    inherit (
       /*
-      e
+      b
       */
+      c
+    )
       f
       /*
       g
@@ -350,31 +225,23 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+    inherit (
+      /*
+      b
+      */
+      c
+    )
       f
       h
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+    inherit (
+      /*
+      b
+      */
+      c
+    )
       f
       h
       /*
@@ -383,16 +250,12 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+    inherit (
+      /*
+      b
+      */
+      c
+    )
       f
       /*
       g
@@ -401,16 +264,12 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+    inherit (
+      /*
+      b
+      */
+      c
+    )
       f
       /*
       g
@@ -421,38 +280,25 @@
       */
       ;
   }
+  { inherit (
+    /*
+    b
+    */
+    c
+    /*
+    d
+    */
+  ) f h; }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+    inherit (
       /*
-      e
+      b
       */
-      f
-      h
-      ;
-  }
-  {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+      c
       /*
-      e
+      d
       */
+    )
       f
       h
       /*
@@ -461,19 +307,15 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+    inherit (
       /*
-      e
+      b
       */
+      c
+      /*
+      d
+      */
+    )
       f
       /*
       g
@@ -482,19 +324,83 @@
       ;
   }
   {
-    inherit
-      (
-        /*
-        b
-        */
-        c
-        /*
-        d
-        */
-      )
+    inherit (
       /*
-      e
+      b
       */
+      c
+      /*
+      d
+      */
+    )
+      f
+      /*
+      g
+      */
+      h
+      /*
+      i
+      */
+      ;
+  }
+  {
+    inherit (
+      /*
+      b
+      */
+      c
+      /*
+      d
+      */
+    )
+      f
+      h
+      ;
+  }
+  {
+    inherit (
+      /*
+      b
+      */
+      c
+      /*
+      d
+      */
+    )
+      f
+      h
+      /*
+      i
+      */
+      ;
+  }
+  {
+    inherit (
+      /*
+      b
+      */
+      c
+      /*
+      d
+      */
+    )
+      f
+      /*
+      g
+      */
+      h
+      ;
+  }
+  {
+    inherit (
+      /*
+      b
+      */
+      c
+      /*
+      d
+      */
+    )
       f
       /*
       g

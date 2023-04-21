@@ -17,42 +17,56 @@ pub(crate) fn rule(
 
     // inherit
     let child = children.next().unwrap();
+    let inherit_any_comments = child.has_inline_comment || child.has_comments;
     steps.push_back(crate::builder::Step::Format(child.element));
-    if vertical {
-        steps.push_back(crate::builder::Step::Indent);
-    }
+    if inherit_any_comments {
+        if vertical {
+            steps.push_back(crate::builder::Step::Indent);
+        }
 
-    if let Some(text) = child.inline_comment {
-        steps.push_back(crate::builder::Step::Whitespace);
-        steps.push_back(crate::builder::Step::Comment(text));
-        steps.push_back(crate::builder::Step::NewLine);
-        steps.push_back(crate::builder::Step::Pad);
-    } else if vertical {
-        steps.push_back(crate::builder::Step::NewLine);
-        steps.push_back(crate::builder::Step::Pad);
-    }
+        if let Some(text) = child.inline_comment {
+            steps.push_back(crate::builder::Step::Whitespace);
+            steps.push_back(crate::builder::Step::Comment(text));
+            steps.push_back(crate::builder::Step::NewLine);
+            steps.push_back(crate::builder::Step::Pad);
+        } else if vertical {
+            steps.push_back(crate::builder::Step::NewLine);
+            steps.push_back(crate::builder::Step::Pad);
+        }
 
-    for trivia in child.trivialities {
-        match trivia {
-            crate::children2::Trivia::Comment(text) => {
-                steps.push_back(crate::builder::Step::Comment(text));
-                steps.push_back(crate::builder::Step::NewLine);
-                steps.push_back(crate::builder::Step::Pad);
+        for trivia in child.trivialities {
+            match trivia {
+                crate::children2::Trivia::Comment(text) => {
+                    steps.push_back(crate::builder::Step::Comment(text));
+                    steps.push_back(crate::builder::Step::NewLine);
+                    steps.push_back(crate::builder::Step::Pad);
+                }
+                crate::children2::Trivia::Newlines(_) => {}
             }
-            crate::children2::Trivia::Newlines(_) => {}
         }
     }
 
-    let mut any_comments = false;
+    let mut indents_any_comments = false;
     if matches!(children.peek().unwrap().element.kind(), rnix::SyntaxKind::NODE_INHERIT_FROM) {
         let child = children.next().unwrap();
-        any_comments = any_comments || child.has_inline_comment || child.has_comments;
-        format_inherit_child(&mut steps, vertical, child, true);
+        indents_any_comments = indents_any_comments || child.has_inline_comment || child.has_comments;
+        if inherit_any_comments {
+            format_inherit_child(&mut steps, vertical, child, true);
+        } else {
+            steps.push_back(crate::builder::Step::Whitespace);
+            steps.push_back(crate::builder::Step::FormatWider(child.element));
+        }
+    }
+
+    if !inherit_any_comments && vertical {
+        steps.push_back(crate::builder::Step::Indent);
+        steps.push_back(crate::builder::Step::NewLine);
+        steps.push_back(crate::builder::Step::Pad);
     }
 
     let mut ident_children = children.collect::<Vec<_>>();
-    any_comments = any_comments || ident_children.iter().any(|child| child.has_inline_comment || child.has_comments);
-    if !any_comments {
+    indents_any_comments = indents_any_comments || ident_children.iter().any(|child| child.has_inline_comment || child.has_comments);
+    if !indents_any_comments {
         ident_children.sort_unstable_by(|a, b| human_sort::compare(&child_text(a), &child_text(b)))
     }
     for child in ident_children.into_iter() {

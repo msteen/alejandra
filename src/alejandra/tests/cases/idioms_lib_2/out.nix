@@ -188,8 +188,7 @@
       else f a;
 
   # Pull in some builtins not included elsewhere.
-  inherit
-    (builtins)
+  inherit (builtins)
     add
     deepSeq
     genericClosure
