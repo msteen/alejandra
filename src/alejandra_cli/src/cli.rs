@@ -1,13 +1,11 @@
 use std::io::Read;
 
 use clap::value_parser;
-use clap::ArgAction;
 use clap::Parser;
 use futures::future::RemoteHandle;
 use futures::stream::FuturesUnordered;
 use futures::task::SpawnExt;
 
-use crate::ads::random_ad;
 use crate::verbosity::Verbosity;
 
 /// The Uncompromising Nix Code Formatter.
@@ -43,10 +41,13 @@ struct CLIArgs {
     #[clap(long, short, value_parser = value_parser!(u8).range(1..))]
     threads: Option<u8>,
 
-    /// Use once to hide informational messages,
-    /// twice to hide error messages.
-    #[clap(long, short, action = ArgAction::Count)]
-    quiet: u8,
+    /// Show informational messages.
+    #[clap(long, short)]
+    verbose: bool,
+    
+    /// Hide error messages.
+    #[clap(long, short)]
+    quiet: bool,
 }
 
 #[derive(Clone)]
@@ -62,7 +63,8 @@ fn format_stdin(verbosity: Verbosity) -> FormattedPath {
     if verbosity.allows_info() {
         eprintln!("Formatting stdin.");
         eprintln!("Use --help to see all command line options.");
-        eprintln!("use --quiet to suppress this and other messages.");
+        eprintln!("use --quiet to suppress errors.");
+        eprintln!("use --verbose to show everything.");
     }
 
     std::io::stdin()
@@ -138,11 +140,10 @@ pub fn main() -> std::io::Result<()> {
     let threads =
         args.threads.map_or_else(num_cpus::get_physical, Into::<usize>::into);
 
-    let verbosity = match args.quiet {
-        0 => Verbosity::Everything,
-        1 => Verbosity::NoInfo,
-        _ => Verbosity::NoErrors,
-    };
+    let verbosity =
+        if args.quiet { Verbosity::NoErrors }
+        else if args.verbose { Verbosity::Everything }
+        else { Verbosity::NoInfo };
 
     let formatted_paths = match &include[..] {
         &[] | &["-"] => {
@@ -203,11 +204,6 @@ pub fn main() -> std::io::Result<()> {
                     (true, false) => "requires formatting",
                 }
             );
-
-            if in_place {
-                eprintln!();
-                eprint!("{}", random_ad());
-            }
         }
 
         std::process::exit(if in_place { 0 } else { 2 });
@@ -218,8 +214,6 @@ pub fn main() -> std::io::Result<()> {
         eprintln!(
             "Congratulations! Your code complies with the Alejandra style."
         );
-        eprintln!();
-        eprint!("{}", random_ad());
     }
 
     std::process::exit(0);
